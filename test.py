@@ -55,4 +55,10 @@ _=1580987782279
 # print(str1.isalpha())
 
 
-print(ord("9"))
+#print(ord("9"))
+
+message = "gjingbaby"
+num = message.find("a")
+print(num)
+
+

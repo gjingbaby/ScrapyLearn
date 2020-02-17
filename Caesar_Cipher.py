@@ -21,8 +21,8 @@ def encrypt(enText,enShift):
                 After_convert -= 26
         elif i.isdigit():
             if After_convert > ord("9"):
-                After_convert -= 9
-        #print(i,After_convert,chr(After_convert))
+                After_convert -= 10
+        print(i,After_convert,chr(After_convert))
         encrypt_result = encrypt_result + chr(After_convert)
 
     print(encrypt_result)
@@ -39,8 +39,8 @@ def decrypye(deText,deShift):
                 After_convert += 26
         elif i.isdigit():
             if After_convert < ord("0"):
-                After_convert += 9
-        #print(i, After_convert, chr(After_convert))
+                After_convert += 10
+        print(i, After_convert, chr(After_convert))
         decrypte_result = decrypte_result + chr(After_convert)
     print("解密信息完成：",decrypte_result)
 
