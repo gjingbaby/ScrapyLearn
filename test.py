@@ -57,8 +57,9 @@ _=1580987782279
 
 #print(ord("9"))
 
-message = "gjingbaby"
-num = message.find("a")
-print(num)
+# message = "gjingbaby"
+# num = message.find("a")
+# print(num)
 
 
+print(chr(95))
