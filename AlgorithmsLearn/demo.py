@@ -102,7 +102,7 @@ print(a)
               +1,2,1,0
               =1,3,3,1
               可以看出是在给第一行的list前后补零相加而成的
-'''
+
 def triangeles(n):
     b = [1]
     while len(b) < n:
@@ -116,6 +116,7 @@ def triangels():
     b = [1]
     while True:
         yield b
+        #此处为什么不直接写成B.insert(0,0),原因在于insert函数直接修改原列表，并没有返回值，所以c会返回None
         c = [0] + b
         d = b + [0]
         b = [c[i]+d[i] for i in range(len(c))]
@@ -125,5 +126,46 @@ for i in triangels():
     print(i)
     if n > 10:
         break
+        
+        
 
+def nature(m):
+    n = 0
+    while n < m:
+        yield n
+        n += 1
+h = nature(1000)
+print(h)
+for i in nature(1000):
+    print(i)
 
+#高阶函数
+
+def highorderFunction(fun,a,b):
+    return fun(a),fun(b)
+c = highorderFunction(abs,-10,2)
+print(c)
+
+def fun(x):
+	return x*x
+li = [x for x in range(10)]
+new_li = map(fun,li)
+print(type(new_li))
+
+from functools import reduce
+def addnum(x,y):
+    return x*10+y
+li = [x for x in range(1,20,2)]
+r = reduce(addnum,li)
+print(r)
+'''
+def usersipt(n):
+    users = []
+    for i in range(n):
+        ipt = input('Please Input Some Words:')
+        users.append(ipt)
+    return users
+def firstNum(str):
+    return str[0].upper()+str[1:]
+li = list(map(firstNum,usersipt(5)))
+print(li)
