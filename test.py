@@ -1,3 +1,4 @@
+
 # import requests
 # from bs4 import BeautifulSoup
 #
@@ -28,38 +29,43 @@ pageHelp.endPage=5&\
 _=1580987782279
 '''
 
-
-# import numpy as np
-# #
-# # universe = np.zeros((30,30))
-# # moon = [[1,1,0,0],
-# #         [1,1,1,0],
-# #         [0,0,1,1],
-# #         [0,0,1,1]]
-# #
-# # earth = [[1,1,0,0,1],
-# #         [1,1,1,0,1],
-# #         [0,0,1,1,1],
-# #         [0,0,1,1,1]]
-# # #此处的位置moon是从y轴11-14，x轴12-15，同理earth，实际就是从i+1到j
-# # universe[10:14,11:15] = moon
-# # universe[16:20,17:22] = earth
-# #
-# # print(universe)
-
-# str = "hello"
+'''
+import numpy as np
 #
-# print(str.isalpha())
+# universe = np.zeros((30,30))
+# moon = [[1,1,0,0],
+#         [1,1,1,0],
+#         [0,0,1,1],
+#         [0,0,1,1]]
 #
-# str1 = "你好，America"
-# print(str1.isalpha())
+# earth = [[1,1,0,0,1],
+#         [1,1,1,0,1],
+#         [0,0,1,1,1],
+#         [0,0,1,1,1]]
+# #此处的位置moon是从y轴11-14，x轴12-15，同理earth，实际就是从i+1到j
+# universe[10:14,11:15] = moon
+# universe[16:20,17:22] = earth
+#
+# print(universe)
+
+str = "hello"
+
+print(str.isalpha())
+
+str1 = "你好，America"
+print(str1.isalpha())
 
 
-#print(ord("9"))
+print(ord("9"))
 
-# message = "gjingbaby"
-# num = message.find("a")
-# print(num)
+message = "gjingbaby"
+num = message.find("a")
+print(num)
 
 
 print(chr(95))
+'''
+li = [1]
+li.insert(0,0)
+ls = li
+print(ls)
