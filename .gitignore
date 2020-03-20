@@ -1,0 +1,5 @@
+
+*.exe
+*.xml
+*.jpg
+.idea/workspace.xml
