@@ -59,13 +59,26 @@ print(str1.isalpha())
 print(ord("9"))
 
 message = "gjingbaby"
-num = message.find("a")
+num = message.find("g")
 print(num)
 
 
 print(chr(95))
-'''
+
 li = [1]
 li.insert(0,0)
 ls = li
 print(ls)
+
+'''
+
+ipt = input('Please Input Integer：')
+ipt_num = int(ipt)
+ipt_flt = float(ipt)
+
+print(ipt_num,ipt_flt)
+
+
+
+
+

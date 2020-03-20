@@ -233,7 +233,7 @@ for i in huishu():
     else:
         break
 
-'''
+
 li = [-33,-4,23,90,-6]          #数字列表
 lis = sorted(li)                #无参数按大小排序
 li_sort = sorted(li,key=abs)    #按绝对值大小排序
@@ -246,3 +246,109 @@ a= 'linchyeats'
 b = reversed(a)
 c = [i for i in b]
 print(''.join(c))
+
+
+#返回函数
+
+def _sum(*args):
+    a = 0
+    for i in args:
+        a = a + i
+    return a
+
+a = _sum(1,2,3,4,5)
+print(a)
+
+def lazy_sum(*args):
+    def _sum():
+        a = 0
+        for i in args:
+            a = a + i
+        return a
+    return _sum
+b = lazy_sum(3,4,5,6)
+print(b)
+
+def count():
+    fs = []
+    for i in range(1,4):
+        def f():
+            return i*i
+        fs.append(f)
+    return fs
+
+f1,f2,f3 = count()   #f1,f2,f3组成列表
+print(f1(),f2(),f3())  #此处结果为9，9，9；因为fs存储的是函数，当第三次返回时i = 3，所以最后调用时都以3为准
+
+def count():
+    def f(j):
+        def g():
+            return j*j
+        return g
+    fs = []
+    for i in range(1,4):
+        fs.append(f(i))   #此处直接将i赋值给f函数，固定了其参数，同时也得益于代码结构的分开
+    return fs
+
+f1,f2,f3 = count()   #此处的赋值结果是f1,f2,f3是三个未被调用的函数
+print(f1(),f2(),f3())
+
+
+#匿名函数
+
+a = list(map(lambda x:x*x,[x for x in range(1,10)]))
+print(a)
+
+b = list(filter(lambda n : n % 2 == 1,range(1,20)))
+print(b)
+
+
+'''
+#装饰器
+import functools
+def log(func):
+    @functools.wraps(func)     #把原始函数的__name__等属性复制到wrapper()函数中，否则，有些依赖函数签名的代码执行就会出错。
+    def wrapper(*args,**kwargs):
+        print('call %s:'%func.__name__)
+        return func(*args,**kwargs)
+    return wrapper
+
+@log
+def now():
+    print('hello')
+now()
+
+
+
+def log(text):
+    def decorator(func):
+        @functools.wraps(func)   #把原始函数的__name__等属性复制到wrapper()函数中，否则，有些依赖函数签名的代码执行就会出错。
+        def wrapper(*args,**kwargs):
+            print(text,func.__name__)
+            return func(*args,**kwargs)
+        return wrapper
+    return decorator
+
+@log('excute:')
+def now():
+    print('hello world')
+
+now()   #函数执行时相当于 log('excute:')(now)
+
+import time
+def logTime(func):
+
+    def wrapper(*args,**kwargs):
+        print('开始时间：',time.ctime())
+        return func(*args,**kwargs)
+    return wrapper
+
+
+@logTime
+def timeclock():
+    print('hello world')
+
+for i in range(10):
+    timeclock()
+    time.sleep(5)
+
