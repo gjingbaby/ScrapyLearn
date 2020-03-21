@@ -303,7 +303,7 @@ b = list(filter(lambda n : n % 2 == 1,range(1,20)))
 print(b)
 
 
-'''
+
 #装饰器
 import functools
 def log(func):
@@ -352,3 +352,68 @@ for i in range(10):
     timeclock()
     time.sleep(5)
 
+
+
+#class and instance
+
+class student():
+    def __init__(self,name,score):
+        self.__name = name
+        self.__score = score
+    def gtName(self):
+        return self.__name
+    def gtScore(self):
+        return self.__score
+    def stScrore(self,newscore):
+        if newscore < 100 and newscore > 0:
+            self.__score = newscore
+        else:
+            raise ValueError('Please Input Right Score.')
+    def prtscore(self):
+        print('The score of %s is %d.'%(self.__name,self.__score))
+
+    def gtlevel(self):
+        if self.__score > 90:
+            return 'The level of %s is A'%(self.__name)
+        elif self.__score < 60:
+            return 'The level of %s is C'%(self.__name)
+        else:
+            return 'The level of %s is B'%(self.__name)
+
+stdt1 = student('jack',76)
+print(stdt1.gtName())
+print(stdt1.gtScore())
+print(stdt1.gtlevel())
+stdt1.stScrore(80)
+print(stdt1.gtScore())
+print(stdt1._student__name)
+'''
+#继承和多态和鸭子类型
+
+class Animal():
+    def run(self):
+        print('Animal is running...')
+
+class Dog(Animal):
+    def run(self):
+        print('Dog is running...')
+class Cat(Animal):
+    def run(self):
+        print('Cat is running...')
+class Cob(Animal):
+    def run(self):
+        print('Cob is running...')
+
+
+def run_twice(anim):
+    anim.run()
+    anim.run()
+
+dog = Dog()
+run_twice(dog)
+
+cat = Cat()
+run_twice(cat)
+
+cob = Cob()
+run_twice(cob)
