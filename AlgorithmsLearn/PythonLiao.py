@@ -170,7 +170,6 @@ def firstNum(str):
 li = list(map(firstNum,usersipt(5)))
 print(li)
 
-'''
 # 生成所有的质数，使用生成器
 
 def _odd_iter():    #基数生成器
@@ -189,7 +188,7 @@ def primes():
         n = next(it)
         yield n
         it = filter(_not_divisiable(n),it)  #筛选序列
-'''
+
 m = 1
 for i in primes():
     print(i)
@@ -387,7 +386,9 @@ print(stdt1.gtlevel())
 stdt1.stScrore(80)
 print(stdt1.gtScore())
 print(stdt1._student__name)
-'''
+
+
+
 #继承和多态和鸭子类型
 
 class Animal():
@@ -417,3 +418,118 @@ run_twice(cat)
 
 cob = Cob()
 run_twice(cob)
+
+print(isinstance(dog,Dog))
+print(isinstance(cat,(Cat,Animal)))
+print(dir(dog))
+a = 'abc'
+print(dir(a))
+
+class student():
+    count = 0
+    def __init__(self,name):
+        self.name = name
+        student.count += 1
+
+s1 = student('jack')
+s2 = student('mary')
+s3 = student('lucy')
+print(student.count)
+
+
+
+class author():
+    pass
+
+#给实例绑定任意属性
+a1 = author()
+a1.name = 'jack'
+print(dir(a1))
+
+#给实例绑定方法
+from types import MethodType
+
+def set_score(self,score):
+    self.score = score
+
+a4 = author()
+a4.set_score = MethodType(set_score,a4)
+a4.set_score(90)
+print(a4.score)
+
+
+#给类绑定任意属性
+author.name = 'mary'
+a2 = author()
+print(a2.name)
+
+#给类绑定方法
+def gtName(self,name):
+    self.name = name
+author.gtName = gtName
+a3 = author()
+a3.gtName('cuidis')
+print(a3.name)
+
+#使用 __splots__限制类添加的属性
+
+class human():
+    __slots__ = ('name','age')
+
+
+h1 = human()
+h1.name = 'linch'
+print(h1.name)
+
+h1.score = 90
+print(h1.score)
+
+
+#关于property装饰器使用
+class student():
+    pass
+s1 = student()
+s1.score = 90
+
+# 此处给实例绑定任意属性,存在问题：
+# 1、无法对绑定的属性的值进行检查，数据无效的风险
+# 2、那么采用第二种方式，在类里边中定义方法，进行检查
+
+class teacher(object):
+    def stScore(self,score):
+        if 0 <= score <= 100:
+            self.score = score
+        else:
+            print('Input Right Score!')
+            self.score = 'WRONG SCORE'
+    def gtScore(self):
+        return self.score
+t1 = teacher()
+t1.stScore(120)
+print(t1.gtScore())
+
+# 1、在类中定义方法，对score属性进行检查，实现了控制风险的目的。
+# 2、但是稍显麻烦，不简洁
+# 3、使用@property装饰器
+'''
+
+class commander(object):
+
+    @property
+    def score(self):
+        return self.score
+
+    @score.setter
+    def score(self,score):
+        if score > 0 and score < 100:
+            self.score = score
+        else:
+            print('Input Right Score!')
+            self.score = 'WRONG SCORE'
+c1 = commander()
+c1.score = 60
+print(c1.score)
+
+#此处可以把函数像属性一样赋值，并检查
+#还是暂时不用@property，直接给类加属性
+#此处有递归最大变量的问题未解决
