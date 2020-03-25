@@ -511,7 +511,6 @@ print(t1.gtScore())
 # 1、在类中定义方法，对score属性进行检查，实现了控制风险的目的。
 # 2、但是稍显麻烦，不简洁
 # 3、使用@property装饰器
-'''
 
 class commander(object):
 
@@ -520,9 +519,9 @@ class commander(object):
         return self.score
 
     @score.setter
-    def score(self,score):
-        if score > 0 and score < 100:
-            self.score = score
+    def score(self,value):
+        if 0 <= value <= 100:
+            self.score = value
         else:
             print('Input Right Score!')
             self.score = 'WRONG SCORE'
@@ -533,3 +532,112 @@ print(c1.score)
 #此处可以把函数像属性一样赋值，并检查
 #还是暂时不用@property，直接给类加属性
 #此处有递归最大变量的问题未解决
+
+#多重继承
+
+class AnimalMixIn(object):
+    def miemie(self):
+        print('I am an animal.')
+
+class RunableMixIn(object):
+    def run(self):
+        print('Running...')
+
+class Flyable(object):
+    def fly(self):
+        print('Flying...')
+
+class Dog(AnimalMixIn,RunableMixIn):
+    pass
+
+d1 = Dog()
+d1.run()
+d1.miemie()
+
+#定制类
+
+class student(object):
+
+    def __init__(self,name):
+        self.name = name
+    #设置实例print出来的效果
+    def __str__(self):
+        return  'student object(name:%s)'%self.name
+    #设置实例直接敲出来，不用print的效果
+    __repr__ = __str__   #两个内容一样，赋值过去
+s1 = student('jack')
+print(s1)
+
+
+class Fib(object):          #给类增加迭代属性，使类可迭代
+    def __init__(self,mx):
+        self.a,self.b = 0,1
+        self.mx = mx
+    #可迭代函数和next方法
+    def __iter__(self):
+        return self
+    def __next__(self):
+        self.a ,self.b = self.b,self.a + self.b
+        if self.a > self.mx:
+            raise StopIteration
+        return self.a
+
+    # 虽然有了可迭代，但是不能像list一样，读取数据
+    def __getitem__(self,n):
+        if isinstance(n,int):     #n是整数的时候
+            a,b = 1,1
+            for i in range(n):
+                a,b = b,a+b
+            return a
+        if isinstance(n,slice):    #n是切片的时候
+            start  = n.start
+            stop = n.stop
+            if start is None:
+                start = 0
+            a,b = 1,1
+            l1 = []
+            for i in range(stop):
+                if i >= start:
+                    l1.append(a)
+                a,b = b,a+b
+            return l1
+f1 = Fib(1000)
+for i in f1:
+    print(i)
+print('It is',f1[10])
+print('It is',f1[10:15])
+
+class student(object):
+    def __init__(self,name):
+        self.name = name
+    def __getattr__(self, item):
+        if item == 'score':
+            return 98
+
+s1 = student('mary')
+print(s1.name)
+print(s1.score)
+print(s1.year)
+
+
+class Chain(object):
+    def __init__(self,path = ''):
+        self.path = path
+    def __getattr__(self, item):
+        return Chain('%s/%s'%(self.path,item))
+    def __str__(self):
+        return self.path
+
+c1 = Chain('hello').store.user.name.line
+print(c1)
+
+'''
+
+class student(object):
+    def __init__(self,name):
+        self.name = name
+    def __call__(self):   #调用实例本身
+        return 'My Name Is %s'%self.name
+
+s1 = student('lucy')
+print(s1())               #调用实例本身
