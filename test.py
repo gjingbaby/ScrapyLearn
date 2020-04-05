@@ -72,6 +72,7 @@ print(ls)
 
 '''
 
+
 ipt = input('Please Input Integer：')
 ipt_num = int(ipt)
 ipt_flt = float(ipt)

@@ -631,7 +631,7 @@ class Chain(object):
 c1 = Chain('hello').store.user.name.line
 print(c1)
 
-'''
+
 
 class student(object):
     def __init__(self,name):
@@ -641,3 +641,56 @@ class student(object):
 
 s1 = student('lucy')
 print(s1())               #调用实例本身
+
+
+def foos(s):
+    n = int(s)
+    assert n != 0,'n is zero'   #意思是n != 0这个表达式应该是True，否则肯定会报错
+    return 10/n
+def main():
+    foos('0')
+
+main()    #报错： AssertionError: n is zero  
+
+
+with open('规划法规体系.md','r',encoding='UTF-8') as f:
+    ctt = f.read()   #读取全部内容
+    print(ctt)
+
+with open('规划法规体系.md','r',encoding='UTF-8') as f:
+    for i in range(10):
+        ctt = f.readline()   #每次读取一行
+        print(ctt)
+
+
+with open('规划法规体系.md','r',encoding='UTF-8') as f:
+    ctt2 = f.readlines()  #一次读取所有内容并按行返回
+    for i in range(len(ctt2)):
+        print('第%d行'%(i+1)+ctt2[i])
+'''
+
+with open(r'D:\pyworkspace\ScrapyLearn\AlgorithmsLearn\blur.jpg','rb') as p:
+    ctt = p.read()
+    with open('blur1.jpg','wb') as p1:
+        p1.write(ctt)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
