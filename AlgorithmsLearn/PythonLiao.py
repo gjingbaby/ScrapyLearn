@@ -667,30 +667,84 @@ with open('规划法规体系.md','r',encoding='UTF-8') as f:
     ctt2 = f.readlines()  #一次读取所有内容并按行返回
     for i in range(len(ctt2)):
         print('第%d行'%(i+1)+ctt2[i])
-'''
+
 
 with open(r'D:\pyworkspace\ScrapyLearn\AlgorithmsLearn\blur.jpg','rb') as p:
     ctt = p.read()
     with open('blur1.jpg','wb') as p1:
         p1.write(ctt)
 
+from io import StringIO
+#向内存中写入str
+f = StringIO()
+ctt = f.write('hello')
+ctt1 = f.write(' ')
+ctt2 = f.write('world!')
+print(f)
+print(f.getvalue())
+#读取内存中str
+f = StringIO('hello\nhi\ngoodbye')
+while True:
+    s = f.readline()
+    if s == '':
+        break
+    print(s.strip())
+
+#写入，读取bytes内容
+from io import BytesIO
+f = BytesIO()
+ctt = f.write('中国 '.encode('utf-8'))
+print(ctt)
+print(f.getvalue())
 
 
+import os
+
+#print(os.name)
+print(type(os.environ))
+paths = os.environ.get('path')
+paths_list = paths.split(';')
+for i in paths_list:
+    print(i)
 
 
+import os
+import sys
+import time
 
+pth3 = os.path.abspath('..')
+pth1 = os.getcwd()
+os.chdir(r'c:\python37')
+pth = os.path.abspath('.')
+pth2 = sys.argv[0]
+print(pth)
+print(pth3)
+print(pth1)
+print(pth2)
 
+ndirpth = os.path.join(pth,'testdir')
+ndirpth1 = os.path.split(pth2)
+ndirpth2 = os.path.splitext(pth2)
 
+print(ndirpth)
+print(ndirpth1)
+print(ndirpth2)
 
+os.mkdir(ndirpth)
 
+time.sleep(5)
+if os.path.isdir(ndirpth):
+    os.rmdir(ndirpth)
 
+'''
+import os 
+dirs = [x for x in os.listdir('.') if os.path.isdir(x)]
+for i in dirs:
+    print(i)
 
+dirs1 = [x for x in os.listdir('.') if os.path.isfile(x) and os.path.splitext(x)[1]=='.py']
 
-
-
-
-
-
-
+for i in dirs1:
+    print(i)
 
 

@@ -70,16 +70,22 @@ li.insert(0,0)
 ls = li
 print(ls)
 
-'''
-
 
 ipt = input('Please Input Integer：')
 ipt_num = int(ipt)
 ipt_flt = float(ipt)
 
 print(ipt_num,ipt_flt)
+'''
 
+str = '中国'
+s1 = str.encode('gbk')    #以gbk格式对str编码，获得bytes类型对象
+print(type(s1))
+print(s1)
 
+s2 = s1.decode('gbk')     #以gbk格式对s1解码，获得unicode格式的str
+print(s2)
+print(type(s2))
 
 
 
