@@ -736,7 +736,7 @@ time.sleep(5)
 if os.path.isdir(ndirpth):
     os.rmdir(ndirpth)
 
-'''
+
 import os 
 dirs = [x for x in os.listdir('.') if os.path.isdir(x)]
 for i in dirs:
@@ -746,5 +746,76 @@ dirs1 = [x for x in os.listdir('.') if os.path.isfile(x) and os.path.splitext(x)
 
 for i in dirs1:
     print(i)
+
+#序列化    使用dumps函数 
+import pickle
+d = dict(name = 'bob',age = 20,score = 88)
+d_pk = pickle.dumps(d)
+with open('PickleData.txt','wb') as f:
+    f.write(d_pk)
+    print(d_pk)
+
+#反序列化   使用load函数
+import pickle
+f1 = open('PickleData.txt','rb')
+d1 = pickle.load(f1) 
+f1.close() 
+print(d1)
+print(type(d1))
+
+#序列化为json数据
+#json数据是字符串，各种语言都能读取
+import json
+#将dict序列化成json数据，使用dumps函数
+d = dict(name = 'bob',age = 20,score = 88)
+d_dumps_byjson = json.dumps(d)
+print(d_dumps_byjson)
+print(type(d_dumps_byjson))
+#将json数据反序列化成dict，使用loads函数
+d_load_byjson = json.loads(d_dumps_byjson)
+print(d_load_byjson)
+print(type(d_load_byjson))
+
+
+#class对象的json序列化和反序列化
+import json
+
+class student():
+    def __init__(self,name,age,score):
+        self.name = name
+        self.age = age
+        self.score = score
+
+s1 = student('jack',23,90)
+
+def studentTojson(ins):
+    return {'name':ins.name,'age':ins.age,'score':ins.score}
+#使用转换函数，将实例转换成dict，再dumps进行json序列化
+s1_dumps_byjson = json.dumps(s1,default=studentTojson)
+print(s1_dumps_byjson)
+#调用实例的字典私有属性，转换成dict，再进行json序列化
+s1_dumps_byjson = json.dumps(s1,default=lambda obj: obj.__dict__)
+print(s1_dumps_byjson)
+
+#反序列化
+#将json数据转换成实例的函数
+def dictToinstance(dic):
+    return student(dic["name"],dic["age"],dic["score"])
+#反序列化时定义object_hook=,将dict转换成实例
+s1_loads_byjson = json.loads(s1_dumps_byjson,object_hook=dictToinstance)
+print(s1_loads_byjson,type(s1_loads_byjson))
+'''
+
+
+import threading
+
+import multiprocessing
+
+
+
+
+
+
+
 
 
