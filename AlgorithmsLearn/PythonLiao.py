@@ -1,7 +1,5 @@
-
-
-import math
 '''
+import math
 def quadratic(a,b,c):
     if b*b > 4*a*c:
         x = (-b + math.sqrt(b*b-4*a*c))/2*a
@@ -93,10 +91,8 @@ def fib(max):
     return 'Done'
 a = fib(5)
 print(a)
-'''
 
 #杨辉三角
-'''
 第一行  [1,2,1]
 第二行计算方式  0,1,2,1
               +1,2,1,0
@@ -804,13 +800,46 @@ def dictToinstance(dic):
 #反序列化时定义object_hook=,将dict转换成实例
 s1_loads_byjson = json.loads(s1_dumps_byjson,object_hook=dictToinstance)
 print(s1_loads_byjson,type(s1_loads_byjson))
-'''
 
 
-import threading
 
+#import threading
 import multiprocessing
+import os
 
+def run_proc(name):
+    print("Run child process %s (%s)"%(name,os.getpid()))
+
+if __name__ == "__main__":
+    print("Parent process %s"%os.getpid())
+    p = multiprocessing.Process(target=run_proc,args=('test',))
+    print('Child process start')
+    p.start()
+    p.join()
+    print('child process end')
+
+
+'''
+import multiprocessing
+import os,time,random
+
+def long_time_task(name):
+    print('run task %s (%s)'%(name,os.getpid()))
+    stt = time.time()
+    time.sleep(random.random()*3)
+    nd = time.time()
+    print('task %s run %0.2f'%(name,(nd-sdt))
+
+if __name__ == '__main__':
+
+    print('Parent process %s'%os.getpid())
+    p = multiprocessing.Pool(4)
+    for i in range(5):
+        p.apply_async(long_time_task,args=(i,))
+    print('waiting for all subprocess done...')
+    p.close()
+    p.join()
+    print('all subprocess done.')
 
 
 
