@@ -819,8 +819,8 @@ if __name__ == "__main__":
     print('child process end')
 
 
-'''
-import multiprocessing
+#进程池
+from multiprocessing import Pool
 import os,time,random
 
 def long_time_task(name):
@@ -828,18 +828,127 @@ def long_time_task(name):
     stt = time.time()
     time.sleep(random.random()*3)
     nd = time.time()
-    print('task %s run %0.2f'%(name,(nd-sdt))
+    print('task %s run %0.2f'%(name,(nd-stt)))
+    
 
-if __name__ == '__main__':
-
-    print('Parent process %s'%os.getpid())
-    p = multiprocessing.Pool(4)
-    for i in range(5):
-        p.apply_async(long_time_task,args=(i,))
-    print('waiting for all subprocess done...')
+if __name__=='__main__':
+    print('Parent process %s.' % os.getpid())
+    p = Pool(9)
+    for i in range(10):
+        p.apply_async(long_time_task, args=(i,))
+    print('Waiting for all subprocesses done...')
     p.close()
     p.join()
-    print('all subprocess done.')
+    print('All subprocesses done.')
+
+
+import subprocess
+
+print('$ nslookup www.python.org')
+r = subprocess.call(['nslookup','www.python.org'])     #查询ip
+print('Exit code:',r)
+
+
+#进程间通信
+
+from multiprocessing import Process,Queue
+import os,time,random
+
+def write(q):
+    print('process to write: %s'%os.getpid())
+    for value in ['A','B','C']:
+        print('put %s to queue'%value)
+        q.put(value)
+        time.sleep(random.random())
+
+def read(q):
+    print('process to read  %s'%os.getpid())
+    while True:
+        value = q.get(True)
+        print('get %s from the queue'%value)
+
+
+if __name__ == '__main__':
+    q = Queue()    #父进程创建Queue,供子进程调用
+    pw = Process(target=write,args=(q,))       
+    pr = Process(target=read,args=(q,))  
+    #启动子进程
+    pw.start()
+    pr.start()
+    #等待pw结束
+    pw.join()
+    #终止pr
+    pr.terminate()
+
+
+#单线程
+import threading ,time
+
+def loop():
+    print('thread %s is running...'%threading.current_thread().name)
+
+    n = 0
+    while n < 5:
+        n = n + 1
+        print('thread %s >>> %s'%(threading.current_thread().name,n))
+        time.sleep(1)
+    print('thread %s ended.'%threading.current_thread().name)
+
+t = threading.Thread(target=loop)
+t.start()
+t.join()
+'''
+import threading,time
+
+balance = 0
+lock =  threading.Lock()
+def changeit(n):
+    global balance
+    balance = balance + n
+    balance = balance - n
+
+def run_thread(n):
+    
+    for i in range(100000):
+        try:
+            lock.acquire()
+            changeit(n)
+        finally:
+            lock.release()
+
+t1 = threading.Thread(target=run_thread,args=(5,))
+t2 = threading.Thread(target=run_thread,args=(8,))
+t1.start()
+t2.start()
+
+t1.join()
+t2.join()
+print(balance)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
