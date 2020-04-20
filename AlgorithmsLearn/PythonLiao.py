@@ -897,7 +897,9 @@ def loop():
 t = threading.Thread(target=loop)
 t.start()
 t.join()
-'''
+
+
+#多线程，锁
 import threading,time
 
 balance = 0
@@ -924,6 +926,59 @@ t2.start()
 t1.join()
 t2.join()
 print(balance)
+
+
+import threading
+#以当前线程作为key，构建全局dict，借助key在函数中传递参数
+#threading中将这一功能封装到local函数中
+local_school = threading.local()    #定义全局dict
+def process_student():
+    std = local_school.student
+    print('hello,%s (in %s)'%(std,threading.current_thread().name))
+
+def process_thread(name):
+    local_school.student = name
+    process_student()
+
+
+t1 = threading.Thread(target=process_thread,args=('alice',),name='Thread-A')
+t2 = threading.Thread(target=process_thread,args=('moon',),name='Thread-B')
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+
+'''
+#正则表达式
+
+import re
+
+text = 'a b   c d'
+retxt = re.match(r'(\w)(\s)(.+)',text)   #返回None 或  match对象
+print(retxt)
+
+stxt = re.split(r'\s+',text)    #返回list
+print(stxt)
+
+gtxt = retxt.groups()        #返回tuple
+print(gtxt) 
+
+r1 = re.compile(r'(\w)(\s)(.+)')  #编译正则表达式，方便复用
+r2 = re.compile(r'\s+')
+result1 = r1.match(text)
+result2 = r2.split(text)
+print(result1)
+print(result2)
+
+
+
+
+
+
+
+
+
+
 
 
 
